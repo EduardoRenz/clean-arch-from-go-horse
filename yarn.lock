@@ -1167,7 +1167,7 @@ debug@^3.2.7:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.1.0, debug@^4.1.1:
+debug@^4.1.0, debug@^4.1.1, debug@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
@@ -1208,6 +1208,11 @@ diff@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
+
+doublylinked@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/doublylinked/-/doublylinked-2.5.2.tgz#7ca36497dceaa2b1b94ccb9b8282049bb07c608f"
+  integrity sha512-TDh0XfQWWDrfvGdAN0hLNIdkTXlw04nVCO5B/37ie4dV0yw1iT9ZrZ6tD+q/0SwXxeI/u6TF9Mxgd7s5/XYV6A==
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -2045,6 +2050,14 @@ leven@^3.1.0:
   resolved "https://registry.yarnpkg.com/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
   integrity sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==
 
+lightning-pool@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/lightning-pool/-/lightning-pool-4.2.1.tgz#a6bd52f71d92f28f075bd2c3233cad54e50b1563"
+  integrity sha512-/pUIoGD3nzTH/wI4TYiJM3cLPeUOzGMTfFeBRuxaOAnwL0LZfwvqn5YFqsfyF98M0C3UXxWgfTz+Lu6okkno+g==
+  dependencies:
+    doublylinked "^2.5.2"
+    putil-promisify "^1.8.6"
+
 lines-and-columns@^1.1.6:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
@@ -2227,6 +2240,11 @@ object-inspect@^1.9.0:
   resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.12.3.tgz#ba62dffd67ee256c8c086dfae69e016cd1f198b9"
   integrity sha512-geUvdk7c+eizMNUDkRpW1wJwgfOiOeHbxBR/hLXK1aT6zmVSO0jsQcs7fj6MGw89jC/cjGfLcNOrtMYtGqm81g==
 
+obuf@~1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
+  integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
+
 on-finished@2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/on-finished/-/on-finished-2.4.1.tgz#58c8c44116e54845ad57f14ab10b03533184ac3f"
@@ -2336,6 +2354,36 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
+postgres-bytea@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/postgres-bytea/-/postgres-bytea-3.0.0.tgz#9048dc461ac7ba70a6a42d109221619ecd1cb089"
+  integrity sha512-CNd4jim9RFPkObHSjVHlVrxoVQXz7quwNFpz7RY1okNNme49+sVyiTvTRobiLV548Hx/hb1BG+iE7h9493WzFw==
+  dependencies:
+    obuf "~1.1.2"
+
+postgresql-client@^2.5.5:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/postgresql-client/-/postgresql-client-2.5.5.tgz#5598c4b14ff835d85f489f131306b44dbf6b6806"
+  integrity sha512-2Mu3i+6NQ9cnkoZNd0XeSZo9WoUpuWf4ZSiCCoDWSj82T93py2/SKXZ1aUaP8mVaU0oKpyyGe0IwLYZ1VHShnA==
+  dependencies:
+    debug "^4.3.4"
+    doublylinked "^2.5.2"
+    lightning-pool "^4.2.1"
+    postgres-bytea "^3.0.0"
+    power-tasks "^1.6.4"
+    putil-merge "^3.10.3"
+    putil-promisify "^1.10.0"
+    putil-varhelpers "^1.6.5"
+
+power-tasks@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/power-tasks/-/power-tasks-1.6.4.tgz#53d8fc2d7d7d4dd29b4d11f559ee46ac53571262"
+  integrity sha512-LX8GGgEIP1N7jsZqlqZ275e6f1Ehq97APCEGj8uVO0NoEoB+77QUX12BFv3LmlNKfq4fIuNSPiHhyHFjqn2gfA==
+  dependencies:
+    debug "^4.3.4"
+    doublylinked "^2.5.2"
+    strict-typed-events "^2.3.1"
+
 pretty-format@^29.0.0, pretty-format@^29.5.0:
   version "29.5.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-29.5.0.tgz#283134e74f70e2e3e7229336de0e4fce94ccde5a"
@@ -2370,6 +2418,21 @@ pure-rand@^6.0.0:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/pure-rand/-/pure-rand-6.0.2.tgz#a9c2ddcae9b68d736a8163036f088a2781c8b306"
   integrity sha512-6Yg0ekpKICSjPswYOuC5sku/TSWaRYlA0qsXqJgM/d/4pLPHPuTxK7Nbf7jFKzAeedUhR8C7K9Uv63FBsSo8xQ==
+
+putil-merge@^3.10.3:
+  version "3.10.3"
+  resolved "https://registry.yarnpkg.com/putil-merge/-/putil-merge-3.10.3.tgz#395e7b23837838e2b0da62cbe325fb33f19240f8"
+  integrity sha512-B18CYi0/SmBYl9+fgowYWkgzJM/8XcLSeafHrFrGzwySQuOzLW0sOGx0CdFVp9zqaxgLctexUdGoSPpm6CPM6A==
+
+putil-promisify@^1.10.0, putil-promisify@^1.8.5, putil-promisify@^1.8.6:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/putil-promisify/-/putil-promisify-1.10.0.tgz#f1d4314574f411230294a0b28690524cde1ffa0e"
+  integrity sha512-zYPoAoMxmf8pC+I75kRkYkVMwU4ZbZl82aTGema175bmhQ06BEJuuOlzOy1buQK9G+hCyQ+BFpzMTKAJhD8rZw==
+
+putil-varhelpers@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/putil-varhelpers/-/putil-varhelpers-1.6.5.tgz#7303e56f6ac344e79cf27ff77fd28fe175fb375e"
+  integrity sha512-kyu+lE5xkc65ScgaIi6rNONLXeS7jGBxl1I0rzHVsFGAAQ45D/VkuEev+t09PFB943F+CqdWFLczH6ePk5TPAA==
 
 qs@6.11.0:
   version "6.11.0"
@@ -2575,6 +2638,14 @@ statuses@2.0.1:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-2.0.1.tgz#55cb000ccf1d48728bd23c685a063998cf1a1b63"
   integrity sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==
 
+strict-typed-events@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/strict-typed-events/-/strict-typed-events-2.3.1.tgz#c466e142dc4c066c755720a8bfccc35746b8c5d4"
+  integrity sha512-Z1h8KpVbrVg34Vwy/VwTD/tS9tFebH2h1Kvw4xnPkKpkISMwUpnqwU44rMfkKMpXbFCybIgDt7ARoCGTzURZhQ==
+  dependencies:
+    putil-promisify "^1.8.5"
+    ts-gems "^2.2.0"
+
 string-length@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/string-length/-/string-length-4.0.2.tgz#a8a8dc7bd5c1a82b9b3c8b87e125f66871b6e57a"
@@ -2677,6 +2748,11 @@ touch@^3.1.0:
   integrity sha512-WBx8Uy5TLtOSRtIq+M03/sKDrXCLHxwDcquSP2c43Le03/9serjQBIztjRz6FkJez9D/hleyAXTBGLwwZUw9lA==
   dependencies:
     nopt "~1.0.10"
+
+ts-gems@^2.2.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/ts-gems/-/ts-gems-2.3.0.tgz#26a027b689289c8121ddfa722af8026222fb98a3"
+  integrity sha512-bUvrwrzlct7vfaNvtgMhynDf6lAki/kTtrNsIGhX6l7GJGK3s6b8Ro7dazOLXabV0m2jyShBzDQ8X1+h/C2Cug==
 
 ts-jest@^29.1.0:
   version "29.1.0"
