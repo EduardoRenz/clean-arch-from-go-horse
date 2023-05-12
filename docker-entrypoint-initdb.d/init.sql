@@ -3,7 +3,6 @@ CREATE TABLE users (
   name VARCHAR(100) NOT NULL
 );
 
-
 /** 
 Creates a table representing a users wallet, that contains the currency type and the amount in his currency
 the currency is a column of type ENUM with BRL and BTC
