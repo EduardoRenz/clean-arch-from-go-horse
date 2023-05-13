@@ -1,7 +1,7 @@
 import express from 'express'
-const app = express()
+import bodyParser from 'body-parser'
+import { Pool } from 'pg'
 const port = 5000
-const { Pool } = require('pg')
 const user = 'user'
 const password = 'user'
 const dbName = 'postgres'
@@ -16,9 +16,8 @@ const pool = new Pool({
 
 pool.connect()
 
-app.get('/', (_, res) => {
-  res.status(200).json({ Hello: 'World' }).send()
-})
+const app = express()
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/wallet', async (_, res) => {
   // suposes to get a user id from a token
