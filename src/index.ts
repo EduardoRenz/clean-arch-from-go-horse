@@ -44,14 +44,14 @@ app.put('/currency_preference', async (req, res) => {
   if (!['BTC', 'BRL'].some((curency) => curency === currency))
     return res.status(400).json({ error: 'invalid currency' }).send()
 
-  const result = await pool.query('UPDATE users SET preferred_currency = $1 WHERE id = $2', [currency, userId])
+  await pool.query('UPDATE users SET preferred_currency = $1 WHERE id = $2', [currency, userId])
   res.status(200).json({ message: 'success' }).send()
 })
 
 app.get('/currency_preference', async (req, res) => {
   const userId = 1
   const result = await pool.query('SELECT preferred_currency FROM users WHERE id = $1', [userId])
-  res.status(200).json(result.rows).send()
+  res.status(200).json(result.rows[0]).send()
 })
 
 app.post('/purchase', async (req, res) => {
@@ -75,7 +75,7 @@ app.post('/purchase', async (req, res) => {
     }
 
     const current_quotation = await axios.get(
-      `https://min-api.cryptocompare.com/data/price?fsym=${prefered_currency}&tsyms=${original_currency}`
+      `https://min-api.cryptocompare.com/data/price?fsym=${original_currency}&tsyms=${prefered_currency}`
     )
 
     const amount = original_amount * current_quotation.data[prefered_currency]
