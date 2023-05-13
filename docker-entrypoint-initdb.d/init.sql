@@ -20,7 +20,7 @@ CREATE TABLE wallet (
 Create a table transaction with timestamps and the amount of the transaction, and the currency of the transaction
 **/
 CREATE TYPE transaction_type AS ENUM ('DEPOSIT', 'WITHDRAW','DEBIT');
-CREATE TABLE transaction (
+CREATE TABLE transactions (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   type transaction_type NOT NULL,
@@ -47,6 +47,6 @@ INSERT INTO wallet (user_id, currency, amount) VALUES( 1, 'BTC', 0.00010000);
 /**
 Insert a default transaction
 **/
-INSERT INTO transaction (id, user_id, type, original_currency, original_amount, currency, amount) VALUES(1, 1, 'DEPOSIT', 'BRL', 100, 'BRL', 100);
+INSERT INTO transactions (id, user_id, type, original_currency, original_amount, currency, amount) VALUES(1, 1, 'DEPOSIT', 'BRL', 100, 'BRL', 100);
 
-INSERT INTO transaction (id, user_id, type, original_currency, original_amount, currency, amount) VALUES(2, 1, 'DEPOSIT', 'BTC', 0.00010000, 'BTC', 0.00010000);
+INSERT INTO transactions (id, user_id, type, original_currency, original_amount, currency, amount) VALUES(2, 1, 'DEPOSIT', 'BTC', 0.00010000, 'BTC', 0.00010000);
