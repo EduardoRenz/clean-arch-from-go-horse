@@ -4,7 +4,12 @@ The goal of this project is to create a example of go horse api then improve unt
 
 ## Project Overview
 
-The main functionality of the project is to simulate a transaction in a Currency and then convert it into Another if needed. To achieve this, the project will use Free apis to get the current price.
+The main functionality of the project is to simulate a transaction in a currency and then convert it into another if needed. To achieve this, the project will use Free apis to get the current price.
+
+- User can choose a preferred currency to use in your balance
+- User can get the list of transactions and wallte information (current balance)
+- Every transaction will be stored in a table
+- Every transaction reduce the amount in wallet
 
 ## Free Cripto API's to get Currency Price
 
