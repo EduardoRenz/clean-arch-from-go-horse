@@ -49,3 +49,9 @@ Running tests:
 ```
 npm run test
 ```
+
+## Branches
+
+- <b>base</b> : Project base to start coding
+- <b> gohorse </b> Complete project with code smell, not using good pratices
+- <b> Clean </b> A Clean Architecture refactor
