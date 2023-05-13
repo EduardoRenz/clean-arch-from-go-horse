@@ -1,13 +1,15 @@
+CREATE TYPE wallet_currency_type AS ENUM ('BRL', 'BTC');
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL
+  name VARCHAR(100) NOT NULL,
+  preferred_currency wallet_currency_type NOT NULL default 'BRL'
 );
 
 /** 
 Creates a table representing a users wallet, that contains the currency type and the amount in his currency
 the currency is a column of type ENUM with BRL and BTC
 **/
-CREATE TYPE wallet_currency_type AS ENUM ('BRL', 'BTC');
 CREATE TABLE wallet (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
