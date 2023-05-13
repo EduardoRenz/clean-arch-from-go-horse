@@ -23,18 +23,14 @@ app.get('/', (_, res) => {
 app.get('/wallet', async (_, res) => {
   // suposes to get a user id from a token
   const userId = 1
-
   const result = await pool.query('SELECT * FROM wallet where user_id = $1', [userId])
-
   res.status(200).json(result.rows).send()
 })
 
 app.get('/transactions', async (_, res) => {
   // suposes to get a user id from a token
   const userId = 1
-
   const result = await pool.query('SELECT * FROM transactions where user_id = $1', [userId])
-
   res.status(200).json(result.rows).send()
 })
 
