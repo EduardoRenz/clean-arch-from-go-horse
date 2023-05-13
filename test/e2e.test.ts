@@ -95,7 +95,9 @@ describe('Get tests', () => {
 
     // Get current wallet amount
     const wallet_response = await api.get(`/wallet`)
-    const btc_amount = parseFloat(wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount)
+    const btc_amount = parseFloat(
+      wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
+    ).toFixed(8)
 
     const response = await api.post(`/purchase`, {
       amount: AMOUNT,
@@ -112,6 +114,6 @@ describe('Get tests', () => {
       new_wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
     )
 
-    expect(new_btc_amount).toBe(btc_amount - AMOUNT)
+    expect(new_btc_amount).toBe(parseFloat(btc_amount) - AMOUNT)
   })
 })
