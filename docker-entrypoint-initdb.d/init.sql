@@ -22,6 +22,8 @@ Create a table transaction with timestamps and the amount of the transaction, an
 CREATE TABLE transaction (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
+  original_currency wallet_currency_type NOT NULL,
+  original_amount NUMERIC(10, 8) NOT NULL,
   currency  wallet_currency_type NOT NULL,
   amount NUMERIC(10, 8) NOT NULL,
   created_at TIMESTAMP NOT NULL,
