@@ -73,7 +73,6 @@ describe('Get tests', () => {
     })
 
     // expect message to be success
-
     expect(response.status).toBe(200)
     expect(response.data.message).toBe('success')
 
@@ -84,5 +83,35 @@ describe('Get tests', () => {
     )
 
     expect(new_brl_amount).toBe(brl_amount - AMOUNT)
+  })
+
+  it('Should correcty make a purchase with BTC as prefered currency', async () => {
+    const userId = 1
+    const AMOUNT = 0.00000001
+    const CURRENCY = 'BTC'
+
+    // ensure prefered currency is BTC
+    await api.put(`/currency_preference`, { currency: CURRENCY })
+
+    // Get current wallet amount
+    const wallet_response = await api.get(`/wallet`)
+    const btc_amount = parseFloat(wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount)
+
+    const response = await api.post(`/purchase`, {
+      amount: AMOUNT,
+      currency: CURRENCY
+    })
+
+    // expect message to be success
+    expect(response.status).toBe(200)
+    expect(response.data.message).toBe('success')
+
+    // New wallet amount
+    const new_wallet_response = await api.get(`/wallet`)
+    const new_btc_amount = parseFloat(
+      new_wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
+    )
+
+    expect(new_btc_amount).toBe(btc_amount - AMOUNT)
   })
 })
