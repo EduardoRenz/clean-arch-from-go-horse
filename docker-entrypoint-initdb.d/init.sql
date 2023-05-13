@@ -30,3 +30,9 @@ CREATE TABLE transaction (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+
+/**
+Default inserts
+**/
+INSERT INTO users (id, "name") VALUES(1, 'Eduardo');
+
