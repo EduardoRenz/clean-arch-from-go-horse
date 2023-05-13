@@ -17,7 +17,11 @@ The main functionality of the project is to simulate a transaction in a Currency
 
 `GET /transactions` -> Get User Transactions
 
-`POST /transaction` -> Creates a new Transaction
+`GET /currency_preference` -> Get User Currency Preference
+
+`PUT /currency_preference` -> Update User Currency Preference passing json currency
+
+`POST /purchase` -> Creates a new Transaction with a purchase, passing amount and currency
 
 ---
 
