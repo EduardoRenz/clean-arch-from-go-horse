@@ -33,4 +33,30 @@ app.get('/transactions', async (_, res) => {
   res.status(200).json(result.rows).send()
 })
 
+app.post('/transaction', async (req, res) => {
+  try {
+    // suposes to get a user id from a token
+    const userId = 1
+    // Get the data from the request
+    const { amount: original_amount, currency: original_currency, type } = req.body
+
+    await pool.query('BEGIN')
+
+    const result = await pool.query(
+      `
+    INSERT INTO transactions (original_currency, original_amount, currency, amount, type, user_id) VALUES 
+    ($1, $2, $3, $4, $5, $6, $7)`,
+      [original_amount, original_currency, amount, currency, amount, type, userId]
+    )
+
+    await pool.query('COMMIT')
+
+    res.status(200).json(result.rows).send()
+  } catch (error) {
+    await pool.query('ROLLBACK')
+  } finally {
+    await pool.query('END')
+  }
+})
+
 app.listen(port, () => console.log(`Running on port ${port}`))
