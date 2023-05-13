@@ -1,7 +1,7 @@
 import express from 'express'
 const app = express()
 const port = 5000
-const { Client, Pool } = require('pg')
+const { Pool } = require('pg')
 const user = 'user'
 const password = 'user'
 const dbName = 'postgres'
