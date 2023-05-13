@@ -55,3 +55,11 @@ npm run test
 - <b>base</b> : Project base to start coding
 - <b> gohorse </b> Complete project with code smell, not using good pratices
 - <b> Clean </b> A Clean Architecture refactor
+
+## Steps to do in this branch
+
+1 - Move all the logics in every endpoint to a respective controller.
+
+ex: wallet should have a WalletController
+
+2 - Start creating tests for every controller, can be a tess file per controller
