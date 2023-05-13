@@ -19,7 +19,10 @@ app.get('/wallet', async (_, res) => {
   const userId = 1
 
   await connection.connect()
-  const result = await connection.query('SELECT * FROM wallet where user_id = $1', { params: [userId] })
+  const result = await connection.query('SELECT * FROM wallet where user_id = $1', {
+    params: [userId],
+    objectRows: true
+  })
   await connection.close()
   res.status(200).json(result.rows).send()
 })
