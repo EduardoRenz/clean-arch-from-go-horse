@@ -85,7 +85,7 @@ app.post('/purchase', async (req, res) => {
     const new_transaction = await pool.query(
       `
     INSERT INTO transactions (original_currency, original_amount, currency, amount, type, user_id) VALUES 
-    ($1, $2, $3, $4, $5, $6)`,
+    ($1, $2, $3, $4, $5, $6) RETURNING id;`,
       [original_currency, original_amount, prefered_currency, amount, 'DEBIT', userId]
     )
 
@@ -98,7 +98,7 @@ app.post('/purchase', async (req, res) => {
 
     await pool.query('COMMIT')
 
-    res.status(200).json({ message: 'success' }).send()
+    res.status(200).json({ message: 'success', id: new_transaction.rows[0].id }).send()
   } catch (error) {
     console.log(error)
     if (error instanceof Error) {
