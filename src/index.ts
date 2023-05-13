@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { Pool } from 'pg'
 import axios from 'axios'
+import WalletController from './controllers/WalletController'
 
 const port = 5000
 const user = 'user'
@@ -23,9 +24,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/wallet', async (_, res) => {
-  // suposes to get a user id from a token
   const userId = 1
-  const result = await pool.query('SELECT * FROM wallet where user_id = $1', [userId])
+  const controller = new WalletController(userId)
+  const result = await controller.get()
   res.status(200).json(result.rows).send()
 })
 
