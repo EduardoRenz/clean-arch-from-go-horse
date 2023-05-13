@@ -49,4 +49,4 @@ Insert a default transaction
 **/
 INSERT INTO transaction (id, user_id, type, original_currency, original_amount, currency, amount) VALUES(1, 1, 'DEPOSIT', 'BRL', 100, 'BRL', 100);
 
-INSERT INTO transaction (id, user_id, type, original_currency, original_amount, currency, amount) VALUES(2, 1, 'WITHDRAW', 'BTC', 0.00010000, 'BTC', 0.00010000);
+INSERT INTO transaction (id, user_id, type, original_currency, original_amount, currency, amount) VALUES(2, 1, 'DEPOSIT', 'BTC', 0.00010000, 'BTC', 0.00010000);
