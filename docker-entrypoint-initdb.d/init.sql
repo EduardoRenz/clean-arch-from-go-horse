@@ -12,7 +12,7 @@ CREATE TABLE wallet (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   currency wallet_currency_type NOT NULL,
-  amount NUMERIC(10, 8) NOT NULL,
+  amount NUMERIC(16, 8) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE transaction (
   original_currency wallet_currency_type NOT NULL,
   original_amount NUMERIC(10, 8) NOT NULL,
   currency  wallet_currency_type NOT NULL,
-  amount NUMERIC(10, 8) NOT NULL,
+  amount NUMERIC(16, 8) NOT NULL,
   created_at TIMESTAMP NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
@@ -35,4 +35,10 @@ CREATE TABLE transaction (
 Default inserts
 **/
 INSERT INTO users (id, "name") VALUES(1, 'Eduardo');
+
+/**
+Insertt a default wallet balance
+**/
+INSERT INTO wallet (id, user_id, currency, amount) VALUES(1, 1, 'BRL', 100);
+INSERT INTO wallet (user_id, currency, amount) VALUES( 1, 'BTC', 0.00010000);
 
