@@ -4,6 +4,7 @@ const port = 5000
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.get('/', (_, res) => {
   res.status(200).json({ Hello: 'World' }).send()
