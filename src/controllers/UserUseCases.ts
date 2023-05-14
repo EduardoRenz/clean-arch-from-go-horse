@@ -1,0 +1,19 @@
+import User from '../entities/User'
+import { Currencies } from '../entities/common'
+import UserRepository from '../repositories/UserRepository'
+
+export default class UserUseCases {
+  repository: UserRepository
+
+  constructor(repository: UserRepository) {
+    this.repository = repository
+  }
+
+  async getUserById(userId: number): Promise<User> {
+    return await this.repository.getUserById(userId)
+  }
+
+  async getPreferredCurrency(userId: number): Promise<Currencies> {
+    return await this.repository.getPreferredCurrency(userId)
+  }
+}
