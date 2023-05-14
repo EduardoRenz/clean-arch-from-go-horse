@@ -6,8 +6,8 @@ describe('WalletController', () => {
     const controller = new WalletController(userId)
     const result = await controller.get()
 
-    expect(result.rows.length).toBe(2)
-    expect(result.rows[0].user_id).toBe(1)
+    expect(result.length).toBe(2)
+    expect(result[0].user_id).toBe(1)
   })
 
   it('Should get a unique currency from wallet', async () => {
