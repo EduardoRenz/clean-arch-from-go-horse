@@ -68,22 +68,16 @@ app.post('/purchase', async (req, res) => {
   }
 
   try {
-    await pool.query('BEGIN')
     const purchaseController = new PurchaseController(pool)
     const purchaseId = await purchaseController.purchase(userId, {
       amount: originalAmount,
       currency: originalCurrency as Currencies
     })
-
-    await pool.query('COMMIT')
     res.status(200).json({ message: 'success', id: purchaseId }).send()
   } catch (error) {
-    await pool.query('ROLLBACK')
     if (error instanceof Error) {
       res.status(401).json({ error: error.message }).send()
     }
-  } finally {
-    await pool.query('END')
   }
 })
 
