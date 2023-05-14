@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Wallet from '../src/entities/Wallet'
 const baseUrl = 'http://localhost:5000'
 
 const api = axios.create({
@@ -12,9 +13,8 @@ describe('Get tests', () => {
     const response = await api.get(`/wallet`)
     const data = response.data
 
-    expect(data).toBeInstanceOf(Array)
-    expect(data.length).toBeGreaterThan(0)
-    expect(data[0].user_id).toBe(userId)
+    expect(data.currencies.length).toBeGreaterThan(0)
+    expect(data.ownerId).toBe(userId)
   })
 
   it('Should get a user transactions', async () => {
@@ -65,7 +65,9 @@ describe('Get tests', () => {
 
     // Get current wallet amount
     const wallet_response = await api.get(`/wallet`)
-    const brl_amount = parseFloat(wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount)
+    const brl_amount = parseFloat(
+      wallet_response.data.currencies.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
+    )
 
     const response = await api.post(`/purchase`, {
       amount: AMOUNT,
@@ -79,7 +81,7 @@ describe('Get tests', () => {
     // New wallet amount
     const new_wallet_response = await api.get(`/wallet`)
     const new_brl_amount = parseFloat(
-      new_wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
+      new_wallet_response.data.currencies.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
     )
 
     expect(new_brl_amount).toBe(brl_amount - AMOUNT)
@@ -96,7 +98,7 @@ describe('Get tests', () => {
     // Get current wallet amount
     const wallet_response = await api.get(`/wallet`)
     const btc_amount = parseFloat(
-      wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
+      wallet_response.data.currencies.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
     ).toFixed(8)
 
     const response = await api.post(`/purchase`, {
@@ -111,7 +113,7 @@ describe('Get tests', () => {
     // New wallet amount
     const new_wallet_response = await api.get(`/wallet`)
     const new_btc_amount = parseFloat(
-      new_wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
+      new_wallet_response.data.currencies.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
     )
 
     expect(new_btc_amount).toBe(parseFloat(btc_amount) - AMOUNT)

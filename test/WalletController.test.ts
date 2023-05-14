@@ -1,4 +1,5 @@
 import WalletController from '../src/controllers/WalletController'
+import Wallet from '../src/entities/Wallet'
 
 describe('WalletController', () => {
   it('Should get a user wallet info', async () => {
@@ -6,8 +7,10 @@ describe('WalletController', () => {
     const controller = new WalletController(userId)
     const result = await controller.get()
 
-    expect(result.length).toBe(2)
-    expect(result[0].user_id).toBe(1)
+    expect(result).toBeInstanceOf(Wallet)
+
+    expect(result.currencies.length).toBe(2)
+    expect(result.ownerId).toBe(1)
   })
 
   it('Should get a unique currency from wallet', async () => {
