@@ -12,19 +12,19 @@ export default class WalletController {
   }
 
   public async get(): Promise<any> {
-    this.client.connect()
+    await this.client.connect()
     const result = await this.client.query('SELECT * FROM wallet where user_id = $1', [this.userId])
-    this.client.end()
+    await this.client.end()
     return result.rows
   }
 
   public async getByCurrency(currency: string): Promise<any> {
-    this.client.connect()
+    await this.client.connect()
     const wallet = await this.client.query('SELECT * FROM wallet where user_id = $1 and currency = $2', [
       this.userId,
       currency
     ])
+    await this.client.end()
     return wallet.rows[0]
-    this.client.end()
   }
 }

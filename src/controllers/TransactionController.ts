@@ -11,9 +11,9 @@ export default class TransactionController {
   }
 
   public async get(): Promise<any> {
-    this.client.connect()
+    await this.client.connect()
     const result = await this.client.query('SELECT * FROM transactions where user_id = $1', [this.userId])
-    this.client.end()
+    await this.client.end()
     return result.rows
   }
 }
