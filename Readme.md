@@ -58,12 +58,15 @@ npm run test
 
 ## Steps to do in this branch
 
-1 - Move all the logics in every endpoint to a respective controller.
+- Move database connection data to a define file
 
-ex: wallet should have a WalletController
+- Move all the logics in every endpoint to a respective controller.
+
+  ex: wallet should have a WalletController
 
 - Wallet Controller should have get() and getByCurrency methods
 
-2 - Start creating tests for every controller, can be a tess file per controller
+- Start creating tests for every controller, can be a tess file per controller
 
-3 - Move database connection data to a define file
+- Create entities, example: Wallet should have a Wallet Object
+- Entities should have a toObject public method (maybe optional)
