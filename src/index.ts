@@ -25,8 +25,8 @@ app.use(bodyParser.json())
 
 app.get('/wallet', async (_, res) => {
   const userId = 1
-  const controller = new WalletController(userId)
-  const result = await controller.get()
+  const walletController = new WalletController(userId)
+  const result = await walletController.get()
   res.status(200).json(result.rows).send()
 })
 
@@ -80,13 +80,10 @@ app.post('/purchase', async (req, res) => {
     )
 
     const amount = original_amount * current_quotation.data[prefered_currency]
+    const walletController = new WalletController(userId)
+    const currencyBalance = await walletController.getByCurrency(prefered_currency)
 
-    // ensure user have enough balance
-    const wallet = await pool.query('SELECT * FROM wallet where user_id = $1 and currency = $2', [
-      userId,
-      prefered_currency
-    ])
-    if (wallet.rows[0].amount < amount) return res.status(400).json({ error: 'insufficient balance' }).send()
+    if (currencyBalance.amount < amount) return res.status(400).json({ error: 'insufficient balance' }).send()
 
     await pool.query('BEGIN')
 
