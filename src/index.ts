@@ -2,15 +2,19 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { Pool } from 'pg'
 import axios from 'axios'
-import WalletController from './controllers/WalletController'
+import WalletController from './usecases/WalletController'
 import { dbConnection } from './defines'
-import TransactionController from './controllers/TransactionController'
+import TransactionController from './usecases/TransactionController'
+import UserUseCases from './usecases/UserUseCases'
+import UserPostgresRepository from './repositories/UserPostgresRepository'
+import { Currencies } from './entities/common'
 
 const port = 5000
-
 const pool = new Pool({ ...dbConnection })
-
 pool.connect()
+
+const userRepository = new UserPostgresRepository(pool)
+const userControler = new UserUseCases(userRepository)
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -53,21 +57,15 @@ app.post('/purchase', async (req, res) => {
   try {
     // suposes to get a user id from a token
     const userId = 1
-
     // Get user prefered currency
-    const user = await pool.query('SELECT * FROM users where id = $1', [userId])
-    const prefered_currency = user.rows[0].preferred_currency
-
+    const prefered_currency = await userControler.getPreferredCurrency(userId)
     // Get the data from the request
     const { amount: original_amount, currency: original_currency } = req.body
-    // IF not found
-    if (!['BTC', 'BRL'].some((curency) => curency === original_currency))
+    // Check if have correct values
+    if (!original_amount || !original_currency) return res.status(400).send()
+    // Check if currency is valid
+    if (!Object.values(Currencies).some((curency) => curency === original_currency))
       return res.status(400).json({ error: 'invalid currency' }).send()
-
-    if (!original_amount || !original_currency) {
-      res.status(400).send()
-      return
-    }
 
     const current_quotation = await axios.get(
       `https://min-api.cryptocompare.com/data/price?fsym=${original_currency}&tsyms=${prefered_currency}`

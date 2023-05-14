@@ -1,4 +1,4 @@
-import WalletController from '../src/controllers/WalletController'
+import WalletController from '../src/usecases/WalletController'
 import Wallet from '../src/entities/Wallet'
 
 describe('WalletController', () => {
