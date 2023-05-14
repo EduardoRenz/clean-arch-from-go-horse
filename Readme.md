@@ -70,3 +70,7 @@ tip: start with all in purchase endpoint
   - Create Tests for UserUseCases, User
 
 - Make this for all others if possible
+
+## Future improvements
+
+- Use of transactions in relational database steps

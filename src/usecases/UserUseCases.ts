@@ -16,4 +16,8 @@ export default class UserUseCases {
   async getPreferredCurrency(userId: number): Promise<Currencies> {
     return await this.repository.getPreferredCurrency(userId)
   }
+
+  async setPreferredCurrency(userId: number, currency: Currencies): Promise<void> {
+    await this.repository.setPreferredCurrency(userId, currency)
+  }
 }

@@ -8,6 +8,8 @@ import { Currencies } from './entities/common'
 import PurchaseController from './usecases/PurchaseController'
 import TransactionPostgresRepository from './repositories/transaction/TransactionPostgresRepository'
 import WalletPostgresRepository from './repositories/wallet/WalletPostgresRepository'
+import UserUseCases from './usecases/UserUseCases'
+import UserPostgresRepository from './repositories/user/UserPostgresRepository'
 
 const port = 5000
 const pool = new Pool({ ...dbConnection })
@@ -15,6 +17,7 @@ pool.connect()
 
 const transactionRepository = new TransactionPostgresRepository(pool)
 const walletRepository = new WalletPostgresRepository(pool)
+const userRepository = new UserPostgresRepository(pool)
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -37,13 +40,14 @@ app.get('/transactions', async (_, res) => {
 
 app.put('/currency_preference', async (req, res) => {
   const userId = 1
+  const userUseCases = new UserUseCases(userRepository)
   const { currency } = req.body
 
   // IF not found
   if (!['BTC', 'BRL'].some((curency) => curency === currency))
     return res.status(400).json({ error: 'invalid currency' }).send()
 
-  await pool.query('UPDATE users SET preferred_currency = $1 WHERE id = $2', [currency, userId])
+  await userUseCases.setPreferredCurrency(userId, currency as Currencies)
   res.status(200).json({ message: 'success' }).send()
 })
 

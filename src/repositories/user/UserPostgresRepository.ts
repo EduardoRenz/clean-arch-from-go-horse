@@ -8,6 +8,9 @@ export default class UserPostgresRepository implements UserRepository {
   constructor(dbConnection: any) {
     this.dbConnection = dbConnection
   }
+  async setPreferredCurrency(userId: number, currency: Currencies): Promise<void> {
+    await this.dbConnection.query('UPDATE users SET preferred_currency = $1 WHERE id = $2', [currency, userId])
+  }
 
   getUserById(userId: number): Promise<User> {
     throw new Error('Method not implemented.')
