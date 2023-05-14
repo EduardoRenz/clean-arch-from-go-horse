@@ -62,4 +62,6 @@ npm run test
 
 ex: wallet should have a WalletController
 
+- Wallet Controller should have get() and getByCurrency methods
+
 2 - Start creating tests for every controller, can be a tess file per controller
