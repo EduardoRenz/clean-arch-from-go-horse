@@ -3,7 +3,8 @@ import UserPostgresRepository from '../repositories/user/UserPostgresRepository'
 import UserRepository from '../repositories/user/UserRepository'
 import UserUseCases from './UserUseCases'
 import axios from 'axios'
-import WalletController from './WalletController'
+import WalletRepository from '../repositories/wallet/WalletRepository'
+import WalletPostgresRepository from '../repositories/wallet/WalletPostgresRepository'
 
 export type PurchaseParams = {
   amount: number
@@ -12,12 +13,14 @@ export type PurchaseParams = {
 
 export default class PurchaseController {
   userRepository: UserRepository
+  walletRepository: WalletRepository
   userUseCases: UserUseCases
   dbConnection: any
 
   constructor(dbConnection: any) {
     this.userRepository = new UserPostgresRepository(dbConnection)
     this.userUseCases = new UserUseCases(this.userRepository)
+    this.walletRepository = new WalletPostgresRepository(dbConnection)
     this.dbConnection = dbConnection
   }
 
@@ -29,9 +32,7 @@ export default class PurchaseController {
       `https://min-api.cryptocompare.com/data/price?fsym=${purchaseData.currency}&tsyms=${prefered_currency}`
     )
     const amount = purchaseData.amount * current_quotation.data[prefered_currency]
-    const walletController = new WalletController(userId)
-    const currencyBalance = await walletController.getByCurrency(prefered_currency)
-
+    const currencyBalance = await this.walletRepository.getCurrencyBalance(userId, prefered_currency)
     if (currencyBalance.amount < amount) throw new Error('insufficient balance')
 
     const new_transaction = await this.dbConnection.query(

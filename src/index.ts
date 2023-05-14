@@ -1,18 +1,21 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { Pool } from 'pg'
-import WalletController from './usecases/WalletController'
+import WalletController from './usecases/WalletUseCases'
 import { dbConnection } from './defines'
 import TransactionController from './usecases/TransactionController'
 import { Currencies } from './entities/common'
 import PurchaseController from './usecases/PurchaseController'
 import TransactionPostgresRepository from './repositories/transaction/TransactionPostgresRepository'
+import WalletMockRepository from './repositories/wallet/WalletMockRepository'
+import WalletPostgresRepository from './repositories/wallet/WalletPostgresRepository'
 
 const port = 5000
 const pool = new Pool({ ...dbConnection })
 pool.connect()
 
 const transactionRepository = new TransactionPostgresRepository(pool)
+const walletRepository = new WalletPostgresRepository(pool)
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -20,7 +23,7 @@ app.use(bodyParser.json())
 
 app.get('/wallet', async (_, res) => {
   const userId = 1
-  const walletController = new WalletController(userId)
+  const walletController = new WalletController(userId, walletRepository)
   const result = await walletController.get()
   res.status(200).json(result).send()
 })
