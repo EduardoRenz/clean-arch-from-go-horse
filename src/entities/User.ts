@@ -3,11 +3,11 @@ import { Currencies } from './common'
 export default class User {
   id: number
   name: String
-  preffered_currency: Currencies
+  preffered_currency: Currencies = Currencies.BRL
 
-  constructor(id: number, name: String, preffered_currency: Currencies) {
+  constructor(id: number, name: String, preffered_currency?: Currencies) {
     this.id = id
     this.name = name
-    this.preffered_currency = preffered_currency
+    if (preffered_currency != null) this.preffered_currency = preffered_currency
   }
 }
