@@ -1,4 +1,4 @@
-import UserMockRepository from '../src/repositories/UserMockRepository'
+import UserMockRepository from '../src/repositories/user/UserMockRepository'
 import UserUseCases from '../src/usecases/UserUseCases'
 import { Currencies } from '../src/entities/common'
 

@@ -63,6 +63,7 @@ tip: start with all in purchase endpoint
 - Move database connection data to a define file
 - Move all the logics in every endpoint to a respective UseCase.
 
+  - Create a Purchase Controller
   - Create User Entity
   - Create User Repositories (Interface, Postgres and Mocked)
   - Create User UseCases

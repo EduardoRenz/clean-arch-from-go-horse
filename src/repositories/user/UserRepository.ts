@@ -1,5 +1,5 @@
-import User from '../entities/User'
-import { Currencies } from '../entities/common'
+import User from '../../entities/User'
+import { Currencies } from '../../entities/common'
 
 export default interface UserRepository {
   getUserById(userId: number): Promise<User>

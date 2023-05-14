@@ -1,6 +1,6 @@
 import User from '../entities/User'
 import { Currencies } from '../entities/common'
-import UserRepository from '../repositories/UserRepository'
+import UserRepository from '../repositories/user/UserRepository'
 
 export default class UserUseCases {
   repository: UserRepository

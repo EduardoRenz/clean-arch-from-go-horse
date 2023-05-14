@@ -25,7 +25,7 @@ describe('Get tests', () => {
 
     expect(data).toBeInstanceOf(Array)
     expect(data.length).toBeGreaterThan(0)
-    expect(data[0].user_id).toBe(userId)
+    expect(data[0].userId).toBe(userId)
   })
 
   it('Should get and switch uer currency preference', async () => {
@@ -114,8 +114,8 @@ describe('Get tests', () => {
     const new_wallet_response = await api.get(`/wallet`)
     const new_btc_amount = parseFloat(
       new_wallet_response.data.currencies.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
-    )
+    ).toFixed(8)
 
-    expect(new_btc_amount).toBe(parseFloat(btc_amount) - AMOUNT)
+    expect(new_btc_amount).toBe((parseFloat(btc_amount) - AMOUNT).toFixed(8))
   })
 })

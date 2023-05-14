@@ -1,5 +1,5 @@
-import User from '../entities/User'
-import { Currencies } from '../entities/common'
+import User from '../../entities/User'
+import { Currencies } from '../../entities/common'
 import UserRepository from './UserRepository'
 
 const preferreds = [{ userId: 1, preferred: Currencies.BTC }]
