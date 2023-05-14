@@ -3,19 +3,12 @@ import bodyParser from 'body-parser'
 import { Pool } from 'pg'
 import axios from 'axios'
 import WalletController from './controllers/WalletController'
+import { dbConnection } from './defines'
+import TransactionController from './controllers/TransactionController'
 
 const port = 5000
-const user = 'user'
-const password = 'user'
-const dbName = 'postgres'
 
-const pool = new Pool({
-  user,
-  host: 'localhost',
-  database: dbName,
-  password,
-  port: 5432
-})
+const pool = new Pool({ ...dbConnection })
 
 pool.connect()
 
@@ -27,14 +20,15 @@ app.get('/wallet', async (_, res) => {
   const userId = 1
   const walletController = new WalletController(userId)
   const result = await walletController.get()
-  res.status(200).json(result.rows).send()
+  res.status(200).json(result).send()
 })
 
 app.get('/transactions', async (_, res) => {
   // suposes to get a user id from a token
   const userId = 1
-  const result = await pool.query('SELECT * FROM transactions where user_id = $1', [userId])
-  res.status(200).json(result.rows).send()
+  const transactionController = new TransactionController(userId)
+  const result = await transactionController.get()
+  res.status(200).json(result).send()
 })
 
 app.put('/currency_preference', async (req, res) => {
