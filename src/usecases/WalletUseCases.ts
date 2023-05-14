@@ -1,5 +1,3 @@
-import { Client } from 'pg'
-import { dbConnection } from '../defines'
 import Wallet, { WalletCurrency } from '../entities/Wallet'
 import { Currencies } from '../entities/common'
 import WalletRepository from '../repositories/wallet/WalletRepository'

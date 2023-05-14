@@ -1,7 +1,6 @@
 import { Currencies } from '../entities/common'
 import UserPostgresRepository from '../repositories/user/UserPostgresRepository'
 import UserRepository from '../repositories/user/UserRepository'
-import UserUseCases from './UserUseCases'
 import axios from 'axios'
 import WalletRepository from '../repositories/wallet/WalletRepository'
 import WalletPostgresRepository from '../repositories/wallet/WalletPostgresRepository'
@@ -14,19 +13,17 @@ export type PurchaseParams = {
 export default class PurchaseController {
   userRepository: UserRepository
   walletRepository: WalletRepository
-  userUseCases: UserUseCases
   dbConnection: any
 
   constructor(dbConnection: any) {
     this.userRepository = new UserPostgresRepository(dbConnection)
-    this.userUseCases = new UserUseCases(this.userRepository)
     this.walletRepository = new WalletPostgresRepository(dbConnection)
     this.dbConnection = dbConnection
   }
 
   async purchase(userId: number, purchaseData: PurchaseParams): Promise<number> {
     // Get user prefered currency
-    const prefered_currency = await this.userUseCases.getPreferredCurrency(userId)
+    const prefered_currency = await this.userRepository.getPreferredCurrency(userId)
     // Get the data from the request
     const current_quotation = await axios.get(
       `https://min-api.cryptocompare.com/data/price?fsym=${purchaseData.currency}&tsyms=${prefered_currency}`

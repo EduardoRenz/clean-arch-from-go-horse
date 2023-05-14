@@ -10,7 +10,6 @@ describe('WalletController', () => {
     const result = await controller.get()
 
     expect(result).toBeInstanceOf(Wallet)
-
     expect(result.currencies.length).toBe(2)
     expect(result.ownerId).toBe(1)
   })

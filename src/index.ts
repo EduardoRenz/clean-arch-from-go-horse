@@ -7,7 +7,6 @@ import TransactionController from './usecases/TransactionController'
 import { Currencies } from './entities/common'
 import PurchaseController from './usecases/PurchaseController'
 import TransactionPostgresRepository from './repositories/transaction/TransactionPostgresRepository'
-import WalletMockRepository from './repositories/wallet/WalletMockRepository'
 import WalletPostgresRepository from './repositories/wallet/WalletPostgresRepository'
 
 const port = 5000
@@ -55,27 +54,34 @@ app.get('/currency_preference', async (req, res) => {
 })
 
 app.post('/purchase', async (req, res) => {
-  try {
-    // suposes to get a user id from a token
-    const userId = 1
-    const { amount: original_amount, currency: original_currency } = req.body
-    await pool.query('BEGIN')
-    // Check if have correct values
-    if (!original_amount || !original_currency) return res.status(400).send()
-    // Check if currency is valid
-    if (!Object.values(Currencies).some((curency) => curency === original_currency))
-      return res.status(400).json({ error: 'invalid currency' }).send()
+  const userId = 1
+  const { amount: originalAmount, currency: originalCurrency } = req.body
 
+  if (!originalAmount || !originalCurrency) {
+    return res.status(400).send('Missing amount or currency')
+  }
+
+  // Check if currency is valid
+  const validCurrencies = Object.values(Currencies)
+  if (!validCurrencies.includes(originalCurrency)) {
+    return res.status(400).json({ error: 'Invalid currency' }).send()
+  }
+
+  try {
+    await pool.query('BEGIN')
     const purchaseController = new PurchaseController(pool)
     const purchaseId = await purchaseController.purchase(userId, {
-      amount: original_amount,
-      currency: original_currency as Currencies
+      amount: originalAmount,
+      currency: originalCurrency as Currencies
     })
+
     await pool.query('COMMIT')
     res.status(200).json({ message: 'success', id: purchaseId }).send()
   } catch (error) {
     await pool.query('ROLLBACK')
-    if (error instanceof Error) res.status(401).json({ error: error.message }).send()
+    if (error instanceof Error) {
+      res.status(401).json({ error: error.message }).send()
+    }
   } finally {
     await pool.query('END')
   }
