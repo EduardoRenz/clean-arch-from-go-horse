@@ -11,6 +11,7 @@ describe('Test of purchase Controller', () => {
     const result = await purchaseController.purchase(userId, { amount: 1, currency: Currency.BRL })
     expect(result).not.toBeNaN()
     expect(result).toBeGreaterThan(0)
-    await pool.end()
   })
 })
+
+afterAll(async () => await pool.end())
