@@ -8,6 +8,14 @@ export default class WalletPostgresRepository implements WalletRepository {
   constructor(dbConnection: any) {
     this.dbConnection = dbConnection
   }
+  async updateCurrencyBalance(userId: number, currency: Currency, amount: number): Promise<void> {
+    // reduce user balance in wallet
+    await this.dbConnection.query('UPDATE wallet SET amount = $1  WHERE user_id = $2 and currency = $3', [
+      amount,
+      userId,
+      currency
+    ])
+  }
   async getCurrencyBalance(userId: number, currency: Currency): Promise<WalletCurrency> {
     const response = await this.dbConnection.query('SELECT * FROM wallet where user_id = $1 and currency = $2', [
       userId,

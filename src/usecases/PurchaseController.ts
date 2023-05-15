@@ -45,12 +45,7 @@ export default class PurchaseController {
       new Transaction(userId, purchaseData.currency, purchaseData.amount, prefered_currency, amount, 'DEBIT')
     )
 
-    // reduce user balance in wallet
-    await this.dbConnection.query('UPDATE wallet SET amount = amount - $1 WHERE user_id = $2 and currency = $3', [
-      amount,
-      userId,
-      prefered_currency
-    ])
+    await this.walletRepository.updateCurrencyBalance(userId, prefered_currency, currencyBalance.amount - amount)
 
     return new_transaction
   }
