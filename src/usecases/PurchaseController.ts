@@ -5,6 +5,7 @@ import WalletRepository from '../repositories/wallet/WalletRepository'
 import WalletPostgresRepository from '../repositories/wallet/WalletPostgresRepository'
 import QuotationGateway from '../gateways/QuotationGateway'
 import QuotationCryptoCompareGateway from '../gateways/QuotationCryptoCompareGateway'
+import QuotationBinanceGateway from '../gateways/QuotationBinanceGateway'
 
 export type PurchaseParams = {
   amount: number
@@ -20,7 +21,7 @@ export default class PurchaseController {
   constructor(dbConnection: any) {
     this.userRepository = new UserPostgresRepository(dbConnection)
     this.walletRepository = new WalletPostgresRepository(dbConnection)
-    this.quotationGateway = new QuotationCryptoCompareGateway()
+    this.quotationGateway = new QuotationBinanceGateway()
     this.dbConnection = dbConnection
   }
 
