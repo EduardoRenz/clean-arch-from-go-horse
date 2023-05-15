@@ -1,8 +1,6 @@
-import { Client } from 'pg'
-import { dbConnection } from '../defines'
 import TransactionRepository from '../repositories/transaction/TransactionRepository'
 
-export default class TransactionController {
+export default class TransactionUseCases {
   private userId: number
   private repository: TransactionRepository
 

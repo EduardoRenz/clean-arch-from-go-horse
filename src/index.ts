@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import { Pool } from 'pg'
 import WalletController from './usecases/WalletUseCases'
 import { dbConnection } from './defines'
-import TransactionController from './usecases/TransactionController'
+import TransactionUseCases from './usecases/TransactionUseCases'
 import { Currencies } from './entities/common'
 import PurchaseController from './usecases/PurchaseController'
 import TransactionPostgresRepository from './repositories/transaction/TransactionPostgresRepository'
@@ -33,8 +33,8 @@ app.get('/wallet', async (_, res) => {
 app.get('/transactions', async (_, res) => {
   // suposes to get a user id from a token
   const userId = 1
-  const transactionController = new TransactionController(userId, transactionRepository)
-  const result = await transactionController.get()
+  const transactionUseCases = new TransactionUseCases(userId, transactionRepository)
+  const result = await transactionUseCases.get()
   res.status(200).json(result).send()
 })
 
