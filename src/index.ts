@@ -4,7 +4,7 @@ import { Pool } from 'pg'
 import WalletController from './usecases/WalletUseCases'
 import { dbConnection } from './defines'
 import TransactionUseCases from './usecases/TransactionUseCases'
-import { Currencies } from './entities/common'
+import { Currency } from './entities/common'
 import PurchaseController from './usecases/PurchaseController'
 import TransactionPostgresRepository from './repositories/transaction/TransactionPostgresRepository'
 import WalletPostgresRepository from './repositories/wallet/WalletPostgresRepository'
@@ -47,7 +47,7 @@ app.put('/currency_preference', async (req, res) => {
   if (!['BTC', 'BRL'].some((curency) => curency === currency))
     return res.status(400).json({ error: 'invalid currency' }).send()
 
-  await userUseCases.setPreferredCurrency(userId, currency as Currencies)
+  await userUseCases.setPreferredCurrency(userId, currency as Currency)
   res.status(200).json({ message: 'success' }).send()
 })
 
@@ -65,14 +65,14 @@ app.post('/purchase', async (req, res) => {
   if (!originalAmount || !originalCurrency) return res.status(400).send('Missing amount or currency')
 
   // Check if currency is valid
-  const validCurrencies = Object.values(Currencies)
+  const validCurrencies = Object.values(Currency)
   if (!validCurrencies.includes(originalCurrency)) return res.status(400).json({ error: 'Invalid currency' }).send()
 
   try {
     const purchaseController = new PurchaseController(pool)
     const purchaseId = await purchaseController.purchase(userId, {
       amount: originalAmount,
-      currency: originalCurrency as Currencies
+      currency: originalCurrency as Currency
     })
     res.status(200).json({ message: 'success', id: purchaseId }).send()
   } catch (error) {

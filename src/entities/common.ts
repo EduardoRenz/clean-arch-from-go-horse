@@ -1,4 +1,4 @@
-export enum Currencies {
+export enum Currency {
   BTC = 'BTC',
   BRL = 'BRL'
 }

@@ -1,5 +1,5 @@
 import Wallet, { WalletCurrency } from '../entities/Wallet'
-import { Currencies } from '../entities/common'
+import { Currency } from '../entities/common'
 import WalletRepository from '../repositories/wallet/WalletRepository'
 
 export default class WalletUseCases {
@@ -17,7 +17,7 @@ export default class WalletUseCases {
   }
 
   public async getByCurrency(currency: String): Promise<WalletCurrency> {
-    const wallet = this.repository.getCurrencyBalance(this.userId, currency as Currencies)
+    const wallet = this.repository.getCurrencyBalance(this.userId, currency as Currency)
     return wallet
   }
 }
