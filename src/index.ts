@@ -53,23 +53,20 @@ app.put('/currency_preference', async (req, res) => {
 
 app.get('/currency_preference', async (req, res) => {
   const userId = 1
-  const result = await pool.query('SELECT preferred_currency FROM users WHERE id = $1', [userId])
-  res.status(200).json(result.rows[0]).send()
+  const userUseCases = new UserUseCases(userRepository)
+  const result = await userUseCases.getPreferredCurrency(userId)
+  res.status(200).json({ preferred_currency: result }).send()
 })
 
 app.post('/purchase', async (req, res) => {
   const userId = 1
   const { amount: originalAmount, currency: originalCurrency } = req.body
 
-  if (!originalAmount || !originalCurrency) {
-    return res.status(400).send('Missing amount or currency')
-  }
+  if (!originalAmount || !originalCurrency) return res.status(400).send('Missing amount or currency')
 
   // Check if currency is valid
   const validCurrencies = Object.values(Currencies)
-  if (!validCurrencies.includes(originalCurrency)) {
-    return res.status(400).json({ error: 'Invalid currency' }).send()
-  }
+  if (!validCurrencies.includes(originalCurrency)) return res.status(400).json({ error: 'Invalid currency' }).send()
 
   try {
     const purchaseController = new PurchaseController(pool)
