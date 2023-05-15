@@ -61,9 +61,8 @@ app.get('/currency_preference', async (req, res) => {
 app.post('/purchase', async (req, res) => {
   const userId = 1
   const { amount: originalAmount, currency: originalCurrency } = req.body
-
+  // Check if not missing anything
   if (!originalAmount || !originalCurrency) return res.status(400).send('Missing amount or currency')
-
   // Check if currency is valid
   const validCurrencies = Object.values(Currency)
   if (!validCurrencies.includes(originalCurrency)) return res.status(400).json({ error: 'Invalid currency' }).send()
