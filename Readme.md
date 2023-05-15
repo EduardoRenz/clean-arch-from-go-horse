@@ -58,12 +58,19 @@ npm run test
 
 ## Steps to do in this branch
 
-1 - Move all the logics in every endpoint to a respective controller.
+tip: start with all in purchase endpoint
 
-ex: wallet should have a WalletController
+- Move database connection data to a define file
+- Move all the logics in every endpoint to a respective UseCase.
 
-- Wallet Controller should have get() and getByCurrency methods
+  - Create a Purchase Controller
+  - Create User Entity
+  - Create User Repositories (Interface, Postgres and Mocked)
+  - Create User UseCases
+  - Create Tests for UserUseCases, User
 
-2 - Start creating tests for every controller, can be a tess file per controller
+- Make this for all others if possible
 
-3 - Move database connection data to a define file
+## Future improvements
+
+- Use of transactions in relational database steps
