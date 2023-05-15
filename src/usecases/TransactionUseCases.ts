@@ -1,3 +1,4 @@
+import Transaction from '../entities/Transaction'
 import TransactionRepository from '../repositories/transaction/TransactionRepository'
 
 export default class TransactionUseCases {
@@ -13,5 +14,7 @@ export default class TransactionUseCases {
     return await this.repository.getByUserId(this.userId)
   }
 
-  public async createTransaction(): Promise<any> {}
+  public async createTransaction(transaction: Transaction): Promise<any> {
+    return await this.repository.createTransaction(transaction)
+  }
 }

@@ -6,6 +6,9 @@ import WalletPostgresRepository from '../repositories/wallet/WalletPostgresRepos
 import QuotationGateway from '../gateways/QuotationGateway'
 import QuotationCryptoCompareGateway from '../gateways/QuotationCryptoCompareGateway'
 import QuotationBinanceGateway from '../gateways/QuotationBinanceGateway'
+import TransactionRepository from '../repositories/transaction/TransactionRepository'
+import TransactionPostgresRepository from '../repositories/transaction/TransactionPostgresRepository'
+import Transaction from '../entities/Transaction'
 
 export type PurchaseParams = {
   amount: number
@@ -16,12 +19,14 @@ export default class PurchaseController {
   userRepository: UserRepository
   walletRepository: WalletRepository
   quotationGateway: QuotationGateway
+  transactionRepository: TransactionRepository
   dbConnection: any
 
   constructor(dbConnection: any) {
     this.userRepository = new UserPostgresRepository(dbConnection)
     this.walletRepository = new WalletPostgresRepository(dbConnection)
     this.quotationGateway = new QuotationBinanceGateway()
+    this.transactionRepository = new TransactionPostgresRepository(dbConnection)
     this.dbConnection = dbConnection
   }
 
@@ -36,11 +41,8 @@ export default class PurchaseController {
     const currencyBalance = await this.walletRepository.getCurrencyBalance(userId, prefered_currency)
     if (currencyBalance.amount < amount) throw new Error('insufficient balance')
 
-    const new_transaction = await this.dbConnection.query(
-      `
-    INSERT INTO transactions (original_currency, original_amount, currency, amount, type, user_id) VALUES 
-    ($1, $2, $3, $4, $5, $6) RETURNING id;`,
-      [purchaseData.currency, purchaseData.amount, prefered_currency, amount, 'DEBIT', userId]
+    const new_transaction = await this.transactionRepository.createTransaction(
+      new Transaction(userId, purchaseData.currency, purchaseData.amount, prefered_currency, amount, 'DEBIT')
     )
 
     // reduce user balance in wallet
@@ -50,6 +52,6 @@ export default class PurchaseController {
       prefered_currency
     ])
 
-    return new_transaction.rows[0].id
+    return new_transaction
   }
 }

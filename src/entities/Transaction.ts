@@ -16,9 +16,9 @@ export default class Transaction {
     currency: Currency,
     amount: number,
     type: string,
-    createdAt: Date
+    createdAt?: Date
   ) {
-    this.createdAt = createdAt
+    this.createdAt = createdAt != null ? createdAt : new Date()
     this.originalCurrency = originalCurrency
     this.originalAmount = originalAmount
     this.currency = currency
