@@ -114,6 +114,6 @@ describe('Get tests', () => {
       new_wallet_response.data.filter((wallet: any) => wallet.currency === CURRENCY)[0].amount
     )
 
-    expect(new_btc_amount).toBe(parseFloat(btc_amount) - AMOUNT)
+    expect(new_btc_amount.toFixed(8)).toBe((parseFloat(btc_amount) - AMOUNT).toFixed(8))
   })
 })
