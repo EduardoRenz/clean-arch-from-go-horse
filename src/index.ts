@@ -87,8 +87,6 @@ app.post('/purchase', async (req, res) => {
     ])
     if (wallet.rows[0].amount < amount) return res.status(400).json({ error: 'insufficient balance' }).send()
 
-    await pool.query('BEGIN')
-
     const new_transaction = await pool.query(
       `
     INSERT INTO transactions (original_currency, original_amount, currency, amount, type, user_id) VALUES 
@@ -103,18 +101,12 @@ app.post('/purchase', async (req, res) => {
       prefered_currency
     ])
 
-    await pool.query('COMMIT')
-
     res.status(200).json({ message: 'success', id: new_transaction.rows[0].id }).send()
   } catch (error) {
     console.log(error)
     if (error instanceof Error) {
       res.status(401).json({ error: error.message }).send()
     }
-
-    await pool.query('ROLLBACK')
-  } finally {
-    await pool.query('END')
   }
 })
 
