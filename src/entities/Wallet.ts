@@ -1,10 +1,10 @@
-import { Currencies } from './common'
+import { Currency } from './common'
 
 export class WalletCurrency {
-  currency: Currencies
+  currency: Currency
   amount: number
 
-  constructor(currency: Currencies, amount: number) {
+  constructor(currency: Currency, amount: number) {
     this.currency = currency
     this.amount = amount
   }

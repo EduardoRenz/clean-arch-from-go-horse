@@ -1,5 +1,5 @@
 import User from '../entities/User'
-import { Currencies } from '../entities/common'
+import { Currency } from '../entities/common'
 import UserRepository from '../repositories/user/UserRepository'
 
 export default class UserUseCases {
@@ -13,11 +13,11 @@ export default class UserUseCases {
     return await this.repository.getUserById(userId)
   }
 
-  async getPreferredCurrency(userId: number): Promise<Currencies> {
+  async getPreferredCurrency(userId: number): Promise<Currency> {
     return await this.repository.getPreferredCurrency(userId)
   }
 
-  async setPreferredCurrency(userId: number, currency: Currencies): Promise<void> {
+  async setPreferredCurrency(userId: number, currency: Currency): Promise<void> {
     await this.repository.setPreferredCurrency(userId, currency)
   }
 }

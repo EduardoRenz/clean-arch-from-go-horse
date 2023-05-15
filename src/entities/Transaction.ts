@@ -1,19 +1,19 @@
-import { Currencies } from './common'
+import { Currency } from './common'
 
 export default class Transaction {
   createdAt: Date
-  originalCurrency: Currencies
+  originalCurrency: Currency
   originalAmount: number
-  currency: Currencies
+  currency: Currency
   amount: number
   type: string
   userId: number
 
   constructor(
     userId: number,
-    originalCurrency: Currencies,
+    originalCurrency: Currency,
     originalAmount: number,
-    currency: Currencies,
+    currency: Currency,
     amount: number,
     type: string,
     createdAt: Date
