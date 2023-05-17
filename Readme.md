@@ -56,6 +56,16 @@ npm run test
 - <b> gohorse </b> Complete project with code smell, not using good pratices
 - <b> Clean </b> A Clean Architecture refactor
 
+## Curls to endpoints
+
+Purchase:
+
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 10, "currency": "BRL"}' http://localhost:5000/purchase
+
+Wallet:
+
+curl http://localhost:5000/wallet
+
 ## Minimal Steps Todo in this branch:
 
 - Create a Express purchase post that receive amount and type
