@@ -55,3 +55,11 @@ npm run test
 - <b>base</b> : Project base to start coding
 - <b> gohorse </b> Complete project with code smell, not using good pratices
 - <b> Clean </b> A Clean Architecture refactor
+
+## Minimal Steps Todo in this branch:
+
+- Create a Express purchase post that receive amount and type
+- Assumes a decode of user id =1
+- Calculate the amount based on preferred currency
+- Create a transaction passing this amount and type
+- Reduce amount from wallet
