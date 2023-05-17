@@ -2,8 +2,8 @@ import { Router } from 'express'
 import pool from '../services/dbConnection'
 import TransactionPostgresRepository from '../repositories/transaction/TransactionPostgresRepository'
 import TransactionUseCases from '../usecases/TransactionUseCases'
-const router = Router()
 
+const router = Router()
 const transactionRepository = new TransactionPostgresRepository(pool)
 
 router.get('/transactions', async (_, res) => {

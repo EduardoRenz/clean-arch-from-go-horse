@@ -2,8 +2,9 @@ import { Router } from 'express'
 import UserUseCases from '../usecases/UserUseCases'
 import { Currency } from '../entities/common'
 import UserPostgresRepository from '../repositories/user/UserPostgresRepository'
-const router = Router()
 import pool from '../services/dbConnection'
+
+const router = Router()
 const userRepository = new UserPostgresRepository(pool)
 
 router.get('/currency_preference', async (req, res) => {

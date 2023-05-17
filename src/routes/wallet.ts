@@ -2,6 +2,7 @@ import { Router } from 'express'
 import WalletController from '../usecases/WalletUseCases'
 import WalletPostgresRepository from '../repositories/wallet/WalletPostgresRepository'
 import pool from '../services/dbConnection'
+
 const walletRepository = new WalletPostgresRepository(pool)
 const router = Router()
 
